@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>超速設計 HYPERSTAR DESIGN — 超速交付，不收超速費</title>
+<meta name="description" content="超速設計 HYPERSTAR DESIGN｜台中個人設計工作室。專注品牌識別、產品包裝、商業視覺與 Banner 設計。超速交付，不收超速費。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,300;0,500;0,700;0,900;1,700&family=Saira+Condensed:wght@600;700;900&family=Noto+Sans+TC:wght@300;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* light theme: cool gray-white base, steel-blue ink, light-blue accent */
+  --void:#eef1f4;          /* page base (lightest) */
+  --steel-deep:#e4e8ec;    /* section alt base */
+  --steel:#d8dde3;         /* card / hover base */
+  --steel-line:#c4ccd4;    /* hairlines / borders */
+  --ice:#3a4654;           /* primary text (steel-blue ink) */
+  --ice-dim:#6b7884;       /* secondary text */
+  --white:#1c2530;         /* headings (darkest ink) */
+  --cyan:#3d8bd4;          /* accent (light blue) */
+  --cyan-deep:#2b6fb0;     /* accent deep */
+  --grad-metal:linear-gradient(135deg,#2b3845 0%,#4a5a6b 40%,#7a8a9a 70%,#2b3845 100%);
+  --grad-cyan:linear-gradient(120deg,#3d8bd4,#2b6fb0);
+  --font-disp:"Saira Condensed","Noto Sans TC",sans-serif;
+  --font-body:"Saira","Noto Sans TC",sans-serif;
+  --font-tc:"Noto Sans TC",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--void);
+  color:var(--ice);
+  font-family:var(--font-body);
+  font-weight:300;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--cyan);color:#fff}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ambient light that follows cursor */
+.glow{
+  position:fixed;top:0;left:0;width:600px;height:600px;
+  border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(61,139,212,0.16),transparent 70%);
+  transform:translate(-50%,-50%);
+  transition:opacity .4s;mix-blend-mode:multiply;
+}
+@media(hover:none){.glow{display:none}}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 6vw;
+  background:rgba(238,241,244,0.6);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .4s,background .4s,padding .4s;
+}
+nav.scrolled{border-bottom-color:var(--steel-line);padding:12px 6vw;background:rgba(238,241,244,0.9)}
+.nav-logo{display:flex;align-items:center;gap:12px;font-family:var(--font-disp);font-weight:900;letter-spacing:.04em}
+.nav-logo img{height:30px;width:auto}
+.nav-logo span{font-size:18px;color:var(--white)}
+.nav-links{display:flex;gap:34px;font-family:var(--font-body);font-size:13px;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.nav-links a{color:var(--ice-dim);position:relative;padding:4px 0;transition:color .3s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--cyan);transition:width .35s cubic-bezier(.2,.8,.2,1)}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  font-family:var(--font-disp);font-weight:700;font-size:13px;letter-spacing:.1em;
+  padding:9px 20px;color:#fff;background:var(--white);
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  transition:background .3s,color .3s;
+}
+.nav-cta:hover{background:var(--cyan);color:#fff}
+.nav-toggle{display:none;background:none;border:none;color:var(--ice);cursor:pointer;flex-direction:column;gap:5px}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--ice);transition:.3s}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;min-height:100vh;
+  display:grid;grid-template-columns:1.15fr .85fr;align-items:center;
+  padding:120px 6vw 80px;gap:40px;z-index:1;
+}
+.hero-bg-grid{
+  position:absolute;inset:0;z-index:-1;opacity:.4;
+  background-image:linear-gradient(var(--steel-line) 1px,transparent 1px),linear-gradient(90deg,var(--steel-line) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 80% 60% at 30% 40%,#000 30%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 30% 40%,#000 30%,transparent 75%);
+}
+.hero-eyebrow{
+  font-family:var(--font-body);font-size:13px;font-weight:500;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--cyan);margin-bottom:26px;
+  display:flex;align-items:center;gap:14px;
+  opacity:0;animation:fadeUp .8s .2s forwards;
+}
+.hero-eyebrow::before{content:"";width:42px;height:1px;background:var(--cyan)}
+.hero h1{
+  font-family:var(--font-disp);font-weight:900;
+  font-size:clamp(54px,8vw,128px);line-height:.9;letter-spacing:-.01em;
+  color:var(--white);text-transform:uppercase;
+}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:block;opacity:0;transform:translateY(105%);animation:slideUp .9s cubic-bezier(.16,1,.3,1) forwards}
+.hero h1 .line:nth-child(1) span{animation-delay:.35s}
+.hero h1 .line:nth-child(2) span{animation-delay:.5s}
+.hero h1 .accent{
+  background:var(--grad-metal);background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:slideUp .9s .5s cubic-bezier(.16,1,.3,1) forwards,shimmer 6s linear infinite;
+}
+.hero-sub{
+  margin-top:30px;font-family:var(--font-tc);font-size:clamp(17px,1.8vw,22px);
+  font-weight:300;color:var(--ice);max-width:30ch;line-height:1.7;
+  opacity:0;animation:fadeUp .8s .8s forwards;
+}
+.hero-sub b{font-weight:700;color:var(--white)}
+.hero-tags{
+  margin-top:34px;display:flex;flex-wrap:wrap;gap:10px;
+  opacity:0;animation:fadeUp .8s 1s forwards;
+}
+.hero-tags span{
+  font-family:var(--font-body);font-size:12px;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ice-dim);
+  border:1px solid var(--steel-line);padding:6px 14px;border-radius:2px;
+}
+.hero-visual{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  opacity:0;animation:fadeIn 1.2s 1s forwards;
+}
+.hero-visual .ring{
+  position:absolute;width:115%;aspect-ratio:1;border:1px solid var(--steel-line);border-radius:50%;
+  animation:spin 40s linear infinite;
+}
+.hero-visual .ring::before{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;background:var(--cyan);border-radius:50%;box-shadow:0 0 16px var(--cyan)}
+.hero-visual .ring2{width:135%;animation-duration:60s;animation-direction:reverse;opacity:.5}
+.hero-logo{width:78%;filter:drop-shadow(0 14px 40px rgba(61,139,212,.22));animation:float 6s ease-in-out infinite}
+.scroll-hint{
+  position:absolute;bottom:28px;left:6vw;display:flex;align-items:center;gap:12px;
+  font-family:var(--font-body);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--ice-dim);
+  opacity:0;animation:fadeUp .8s 1.4s forwards;
+}
+.scroll-hint .bar{width:40px;height:1px;background:var(--ice-dim);position:relative;overflow:hidden}
+.scroll-hint .bar::after{content:"";position:absolute;inset:0;background:var(--cyan);animation:scrollbar 2s ease-in-out infinite}
+
+/* ---------- SECTION SHELL ---------- */
+section{position:relative;z-index:1}
+.wrap{padding:110px 6vw}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:60px;flex-wrap:wrap}
+.sec-index{font-family:var(--font-body);font-size:13px;font-weight:500;letter-spacing:.3em;color:var(--cyan);text-transform:uppercase}
+.sec-title{font-family:var(--font-disp);font-weight:900;font-size:clamp(34px,5vw,68px);line-height:1;color:var(--white);text-transform:uppercase}
+.sec-title .tc{font-family:var(--font-tc);display:block;font-size:.42em;letter-spacing:.06em;color:var(--ice-dim);margin-top:14px;font-weight:500}
+.sec-desc{font-family:var(--font-tc);max-width:38ch;color:var(--ice-dim);font-size:15px;line-height:1.8}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- ABOUT ---------- */
+#about{background:linear-gradient(180deg,var(--void),var(--steel-deep))}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.about-statement{font-family:var(--font-tc);font-size:clamp(22px,2.6vw,34px);font-weight:300;line-height:1.6;color:var(--white)}
+.about-statement b{font-weight:700}
+.about-statement .hl{color:var(--cyan)}
+.about-body{font-family:var(--font-tc);color:var(--ice-dim);font-size:16px;line-height:1.9;margin-top:0}
+.about-body p+p{margin-top:18px}
+.about-meta{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--steel-line);border:1px solid var(--steel-line)}
+.about-meta div{background:var(--steel-deep);padding:20px 22px}
+.about-meta .k{font-family:var(--font-body);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ice-dim)}
+.about-meta .v{font-family:var(--font-tc);font-size:16px;color:var(--white);margin-top:6px;font-weight:500}
+
+/* ---------- SERVICES ---------- */
+#services{background:var(--steel-deep)}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--steel-line);border:1px solid var(--steel-line)}
+.svc{
+  background:var(--steel-deep);padding:44px 36px;position:relative;overflow:hidden;
+  transition:background .4s;
+}
+.svc::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:var(--grad-cyan);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.svc:hover{background:var(--steel)}
+.svc:hover::before{transform:scaleX(1)}
+.svc-num{font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--cyan)}
+.svc h3{font-family:var(--font-disp);font-weight:700;font-size:26px;color:var(--white);margin:24px 0 6px;text-transform:uppercase;letter-spacing:.02em}
+.svc .h3tc{font-family:var(--font-tc);font-size:17px;color:var(--ice);font-weight:500;margin-bottom:18px}
+.svc p{font-family:var(--font-tc);font-size:14px;color:var(--ice-dim);line-height:1.8}
+.svc ul{list-style:none;margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.svc ul li{font-family:var(--font-tc);font-size:12px;color:var(--ice-dim);border:1px solid var(--steel-line);padding:4px 11px;border-radius:2px}
+
+/* ---------- WORKS ---------- */
+#works{background:linear-gradient(180deg,var(--steel-deep),var(--void))}
+.work-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
+.work-filter button{
+  font-family:var(--font-body);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ice-dim);background:none;border:1px solid var(--steel-line);
+  padding:9px 18px;cursor:pointer;border-radius:2px;transition:.3s;
+}
+.work-filter button:hover{color:var(--white);border-color:var(--ice-dim)}
+.work-filter button.active{color:#fff;background:var(--white);border-color:var(--white)}
+.work-grid{column-count:3;column-gap:18px}
+.work-card{
+  position:relative;overflow:hidden;cursor:pointer;background:#fff;
+  border:1px solid var(--steel-line);
+  break-inside:avoid;margin-bottom:18px;display:block;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%);
+  transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .4s,box-shadow .4s;
+}
+.work-card:hover{transform:translateY(-5px);border-color:var(--cyan);box-shadow:0 16px 40px rgba(28,37,48,.12)}
+.work-card img{width:100%;height:auto;display:block;transition:transform .7s cubic-bezier(.16,1,.3,1),filter .5s;filter:saturate(.98)}
+.work-card:hover img{transform:scale(1.03);filter:saturate(1.04)}
+.work-info{
+  position:absolute;left:0;bottom:0;right:0;padding:26px 20px 16px;
+  background:linear-gradient(transparent,rgba(15,20,28,.88));
+  opacity:0;transform:translateY(8px);transition:.4s;pointer-events:none;
+}
+.work-card:hover .work-info{opacity:1;transform:none}
+.work-cat{font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
+.work-info h4{font-family:var(--font-tc);font-size:16px;color:#fff;font-weight:700;margin-top:5px}
+
+/* ---------- CONTACT ---------- */
+#contact{background:var(--void);text-align:center;overflow:hidden}
+.contact-inner{position:relative}
+.contact-big{
+  font-family:var(--font-disp);font-weight:900;font-size:clamp(40px,7vw,104px);line-height:.95;
+  color:var(--white);text-transform:uppercase;letter-spacing:-.01em;
+}
+.contact-big .accent{background:var(--grad-metal);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 6s linear infinite}
+.contact-tag{font-family:var(--font-tc);font-size:clamp(18px,2vw,26px);color:var(--cyan);margin:24px 0 50px;font-weight:300;letter-spacing:.04em}
+.contact-links{display:flex;justify-content:center;gap:1px;background:var(--steel-line);border:1px solid var(--steel-line);max-width:760px;margin:0 auto;flex-wrap:wrap}
+.contact-links a{
+  flex:1;min-width:200px;background:var(--steel-deep);padding:30px 24px;
+  display:flex;flex-direction:column;gap:8px;transition:background .4s;
+}
+.contact-links a:hover{background:var(--steel)}
+.contact-links .k{font-family:var(--font-body);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--ice-dim)}
+.contact-links .v{font-family:var(--font-body);font-size:17px;color:var(--white);font-weight:500;word-break:break-all}
+.contact-links a:hover .v{color:var(--cyan)}
+
+/* ---------- FOOTER ---------- */
+footer{padding:40px 6vw;border-top:1px solid var(--steel-line);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer .f-logo{display:flex;align-items:center;gap:12px}
+footer .f-logo img{height:26px}
+footer .f-logo span{font-family:var(--font-disp);font-weight:900;color:var(--white);letter-spacing:.04em}
+footer small{font-family:var(--font-body);color:var(--ice-dim);font-size:12px;letter-spacing:.05em}
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:1000;background:rgba(228,232,236,.92);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:5vw}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:84vh;object-fit:contain;border:1px solid var(--steel-line);box-shadow:0 30px 80px rgba(28,37,48,.25)}
+.lb-close{position:absolute;top:24px;right:30px;background:#fff;border:1px solid var(--steel-line);color:var(--white);width:48px;height:48px;font-size:22px;cursor:pointer;transition:.3s}
+.lb-close:hover{background:var(--white);color:#fff}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:#fff;border:1px solid var(--steel-line);color:var(--white);width:54px;height:54px;font-size:24px;cursor:pointer;transition:.3s}
+.lb-nav:hover{background:var(--white);color:#fff}
+.lb-prev{left:24px}.lb-next{right:24px}
+.lb-cap{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:var(--font-tc);color:var(--ice-dim);font-size:14px;letter-spacing:.05em}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes slideUp{to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes shimmer{to{background-position:200% center}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes scrollbar{0%{transform:translateX(-100%)}50%{transform:translateX(0)}100%{transform:translateX(100%)}}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr;padding-top:140px;min-height:auto}
+  .hero-visual{order:-1;max-width:340px;margin:0 auto 10px}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .work-grid{column-count:2}
+  .scroll-hint{display:none}
+}
+@media(max-width:760px){
+  .nav-links,.nav-cta{display:none}
+  .nav-toggle{display:flex}
+  nav.open .nav-links{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--steel-deep);border-bottom:1px solid var(--steel-line)}
+  nav.open .nav-links a{padding:18px 6vw;border-top:1px solid var(--steel-line)}
+  .work-grid{column-count:1}
+  .svc-grid{grid-template-columns:1fr}
+  .about-meta{grid-template-columns:1fr}
+  .wrap{padding:80px 6vw}
+  .contact-links a{min-width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 .line span,.hero-eyebrow,.hero-sub,.hero-tags,.hero-visual,.scroll-hint{opacity:1;transform:none;animation:none}
+}
+</style>
+</head>
+<body>
+<div class="glow" id="glow"></div>
+
+<nav id="nav">
+  <a href="#top" class="nav-logo"><img src="assets/logo-dark.png" alt="超速設計"><span>HYPERSTAR</span></a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#works">Works</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">合作詢問</a>
+  <button class="nav-toggle" id="navToggle" aria-label="選單"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-text">
+    <div class="hero-eyebrow">Taichung · Brand &amp; Visual Studio</div>
+    <h1>
+      <span class="line"><span>HYPERSTAR</span></span>
+      <span class="line"><span class="accent">DESIGN</span></span>
+    </h1>
+    <p class="hero-sub"><b>好的設計，不用你等。</b><br>從品牌識別到產品包裝，從一張 Banner 到完整視覺系統——我們交的不只是稿，是結果。</p>
+    <div class="hero-tags">
+      <span>Product Design</span>
+      <span>Brand Identity</span>
+      <span>Packaging</span>
+      <span>Campaign Visual</span>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="ring"></div>
+    <div class="ring ring2"></div>
+    <img src="assets/logo-dark.png" alt="超速設計 HYPERSTAR DESIGN" class="hero-logo">
+  </div>
+  <div class="scroll-hint"><span class="bar"></span>Scroll</div>
+</header>
+
+<!-- ABOUT -->
+<section id="about" class="wrap">
+  <div class="sec-head reveal">
+    <div>
+      <div class="sec-index">01 — About</div>
+      <h2 class="sec-title">關於<br>超速<span class="tc">WHO WE ARE</span></h2>
+    </div>
+    <p class="sec-desc">我們是超速設計團隊，深耕中部地區的品牌視覺工作室。把品牌當成生意做，不只當作品集——因為好看，從來不是設計的終點。</p>
+  </div>
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="about-statement">我們是<b>超速設計團隊</b>，立足<span class="hl">台中</span>，服務中部品牌。設計對我們來說，是讓品牌<b>賣得出去</b>的工具，不是好看就好。</p>
+      <div class="about-meta">
+        <div><div class="k">Base</div><div class="v">台中 · 深耕中部</div></div>
+        <div><div class="k">Field</div><div class="v">品牌 · 包裝 · 商業視覺</div></div>
+        <div><div class="k">Edge</div><div class="v">電商實戰 / 量產經驗</div></div>
+        <div><div class="k">Promise</div><div class="v">好的設計，不用你等</div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="about-body">
+        <p>我們長期深耕設計領域，橫跨產品開發（從概念草圖、技術平面圖、打樣、QC 到量產）與品牌端營運（視覺、包裝、電商上架），對「一個產品如何從概念走到貨架」有完整的實戰理解。</p>
+        <p>這意味著我們交付的設計，不只是漂亮的版面——而是懂成本、懂通路、懂得怎麼讓產品在貨架與螢幕上被選中的視覺。</p>
+        <p>從 LOGO 到模切包裝，從產品型錄到上架主視覺，一條龍掌控每個細節。溝通直接、交付明快，這就是「超速」的意思。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="wrap">
+  <div class="sec-head reveal">
+    <div>
+      <div class="sec-index">02 — Services</div>
+      <h2 class="sec-title">服務項目<span class="tc">WHAT WE DELIVER</span></h2>
+    </div>
+    <p class="sec-desc">四條主線，從產品概念一路覆蓋到品牌上架。每個案子，我們都當成自己的品牌在做。</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc reveal">
+      <div class="svc-num">/ 01</div>
+      <h3>Product Design</h3>
+      <div class="h3tc">產品開發</div>
+      <p>從概念草圖、技術平面圖、規格表到打樣量產，全程掌控。懂工廠、懂成本、懂落地的設計。</p>
+      <ul><li>技術平面圖</li><li>Spec Sheet</li><li>打樣 / QC</li><li>量產對接</li></ul>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-num">/ 02</div>
+      <h3>Brand Identity</h3>
+      <div class="h3tc">品牌識別</div>
+      <p>從命名、LOGO、色彩材質到完整視覺系統。我們替你建立一眼記得住、用得久的品牌資產。</p>
+      <ul><li>LOGO 設計</li><li>VI 系統</li><li>名片 / 事務</li><li>品牌指南</li></ul>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-num">/ 03</div>
+      <h3>Packaging</h3>
+      <div class="h3tc">產品包裝</div>
+      <p>具備模切結構與量產經驗的包裝設計。不只看起來對，打開、運送、上架都對。</p>
+      <ul><li>包裝結構</li><li>模切刀模</li><li>型錄編排</li><li>產品攝影</li></ul>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-num">/ 04</div>
+      <h3>Campaign Visual</h3>
+      <div class="h3tc">商業視覺</div>
+      <p>Banner、DM、活動主視覺、上架頁。跨風格切換——雜誌感、街頭潮、科技感，我們都能打。</p>
+      <ul><li>Banner 設計</li><li>DM / 海報</li><li>電商主視覺</li><li>社群素材</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works" class="wrap">
+  <div class="sec-head reveal">
+    <div>
+      <div class="sec-index">03 — Works</div>
+      <h2 class="sec-title">作品實績<span class="tc">SELECTED WORK</span></h2>
+    </div>
+    <p class="sec-desc">橫跨產品開發、品牌識別、平面印刷與商業視覺的實戰作品。點擊任一作品可放大檢視。</p>
+  </div>
+  <div class="work-filter reveal">
+    <button class="active" data-f="product">產品開發</button>
+    <button data-f="logo">品牌識別</button>
+    <button data-f="card">名片</button>
+    <button data-f="dm">DM / 海報</button>
+    <button data-f="campaign">商業視覺</button>
+  </div>
+  <div class="work-grid reveal" id="workGrid">
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-01.jpg" data-title="Airflux M2 機能手套 · 設計草圖 Concept Sketch">
+      <img src="assets/works/pd-01.jpg" alt="Airflux M2 機能手套 設計草圖" loading="lazy">
+      <div class="work-info"><div class="work-cat">設計草圖 Concept</div><h4>Airflux M2 機能手套</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-02.jpg" data-title="Airflux M2 配色提案 · 設計草圖 Concept Sketch">
+      <img src="assets/works/pd-02.jpg" alt="Airflux M2 配色提案 設計草圖" loading="lazy">
+      <div class="work-info"><div class="work-cat">設計草圖 Concept</div><h4>Airflux M2 配色提案</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-03.jpg" data-title="Airflux M2 KMG-CO03 · 型錄主視覺">
+      <img src="assets/works/pd-03.jpg" alt="Airflux M2 KMG-CO03 型錄" loading="lazy">
+      <div class="work-info"><div class="work-cat">型錄主視覺</div><h4>Airflux M2 KMG-CO03</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-04.jpg" data-title="Urban Drift 後背包 · 結構三視圖 Render">
+      <img src="assets/works/pd-04.jpg" alt="Urban Drift 後背包 結構三視圖" loading="lazy">
+      <div class="work-info"><div class="work-cat">結構三視圖</div><h4>Urban Drift 後背包</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-05.jpg" data-title="Urban Drift 16L 防水後背包 KO-RSBP-01 · 型錄主視覺">
+      <img src="assets/works/pd-05.jpg" alt="Urban Drift 16L 防水後背包" loading="lazy">
+      <div class="work-info"><div class="work-cat">型錄主視覺</div><h4>Urban Drift 16L 防水後背包</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-06.jpg" data-title="Urban Drift 實背提案 · 3D 渲染 Render">
+      <img src="assets/works/pd-06.jpg" alt="Urban Drift 實背提案 3D 渲染" loading="lazy">
+      <div class="work-info"><div class="work-cat">3D 渲染</div><h4>Urban Drift 實背提案</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-07.jpg" data-title="防水戰術腿包 · 配色渲染提案 Render">
+      <img src="assets/works/pd-07.jpg" alt="防水戰術腿包 配色渲染" loading="lazy">
+      <div class="work-info"><div class="work-cat">配色渲染</div><h4>防水戰術腿包</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-08.jpg" data-title="防水戰術腿包 實穿情境 · Styling">
+      <img src="assets/works/pd-08.jpg" alt="防水戰術腿包 實穿情境" loading="lazy">
+      <div class="work-info"><div class="work-cat">Styling</div><h4>防水戰術腿包 實穿情境</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-09.jpg" data-title="Kögenki × PREHONDY 賽車靴 · 側視渲染 Lateral View">
+      <img src="assets/works/pd-09.jpg" alt="Kögenki x PREHONDY 賽車靴" loading="lazy">
+      <div class="work-info"><div class="work-cat">側視渲染</div><h4>Kögenki × PREHONDY 賽車靴</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-10.jpg" data-title="機能高筒車鞋 · 多視圖開發 atop Dial">
+      <img src="assets/works/pd-10.jpg" alt="機能高筒車鞋 多視圖開發" loading="lazy">
+      <div class="work-info"><div class="work-cat">多視圖開發</div><h4>機能高筒車鞋</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-11.jpg" data-title="Stratus C2 防水車鞋 · 型錄三配色">
+      <img src="assets/works/pd-11.jpg" alt="Stratus C2 防水車鞋 三配色" loading="lazy">
+      <div class="work-info"><div class="work-cat">型錄三配色</div><h4>Stratus C2 防水車鞋</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-12.jpg" data-title="Gale C1 防水休閒車鞋 · 型錄三配色">
+      <img src="assets/works/pd-12.jpg" alt="Gale C1 防水休閒車鞋 三配色" loading="lazy">
+      <div class="work-info"><div class="work-cat">型錄三配色</div><h4>Gale C1 防水休閒車鞋</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-13.jpg" data-title="車鞋機能科技 · 規格說明頁 Spec">
+      <img src="assets/works/pd-13.jpg" alt="車鞋機能科技 規格說明" loading="lazy">
+      <div class="work-info"><div class="work-cat">規格說明頁</div><h4>車鞋機能科技</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-14.jpg" data-title="都會通勤手套 黑 · 技術平面圖 Tech Flat">
+      <img src="assets/works/pd-14.jpg" alt="都會通勤手套 黑 技術平面圖" loading="lazy">
+      <div class="work-info"><div class="work-cat">技術平面圖 Tech Flat</div><h4>都會通勤手套 黑</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-15.jpg" data-title="都會通勤手套 米白 · 技術平面圖 Tech Flat">
+      <img src="assets/works/pd-15.jpg" alt="都會通勤手套 米白 技術平面圖" loading="lazy">
+      <div class="work-info"><div class="work-cat">技術平面圖 Tech Flat</div><h4>都會通勤手套 米白</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-16.jpg" data-title="都會通勤手套 棕 · 技術平面圖 Tech Flat">
+      <img src="assets/works/pd-16.jpg" alt="都會通勤手套 棕 技術平面圖" loading="lazy">
+      <div class="work-info"><div class="work-cat">技術平面圖 Tech Flat</div><h4>都會通勤手套 棕</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-17.jpg" data-title="Stormrider C7 復古手套 KMG-CR01 · 型錄三配色">
+      <img src="assets/works/pd-17.jpg" alt="Stormrider C7 復古手套 三配色" loading="lazy">
+      <div class="work-info"><div class="work-cat">型錄三配色</div><h4>Stormrider C7 復古手套</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-18.jpg" data-title="XMS-R1 賽車手套 · 技術平面圖 Tech Flat">
+      <img src="assets/works/pd-18.jpg" alt="XMS-R1 賽車手套 技術平面圖" loading="lazy">
+      <div class="work-info"><div class="work-cat">技術平面圖 Tech Flat</div><h4>XMS-R1 賽車手套</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/pd-19.jpg" data-title="XMS-R1 賽車手套 · 量產實品 Final Render">
+      <img src="assets/works/pd-19.jpg" alt="XMS-R1 賽車手套 量產實品" loading="lazy">
+      <div class="work-info"><div class="work-cat">量產實品</div><h4>XMS-R1 賽車手套</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/work-stratus.jpg" data-title="Stratus C2 防水車鞋 · 型錄主視覺">
+      <img src="assets/work-stratus.jpg" alt="Stratus C2 防水車鞋" loading="lazy">
+      <div class="work-info"><div class="work-cat">型錄主視覺</div><h4>Stratus C2 防水車鞋</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/work-gale.jpg" data-title="Gale C1 防水休閒車鞋 · 型錄主視覺">
+      <img src="assets/work-gale.jpg" alt="Gale C1 防水休閒車鞋" loading="lazy">
+      <div class="work-info"><div class="work-cat">型錄主視覺</div><h4>Gale C1 防水休閒車鞋</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/work-stormrider.jpg" data-title="Stormrider C7 復古手套 · 型錄主視覺">
+      <img src="assets/work-stormrider.jpg" alt="Stormrider C7 復古手套" loading="lazy">
+      <div class="work-info"><div class="work-cat">型錄主視覺</div><h4>Stormrider C7 復古手套</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/work-bag.jpg" data-title="水洗復古包 Y2K · 型錄主視覺">
+      <img src="assets/work-bag.jpg" alt="水洗復古包 Y2K" loading="lazy">
+      <div class="work-info"><div class="work-cat">型錄主視覺</div><h4>水洗復古包 Y2K</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-01.jpg" data-title="羽絨機能外套 · 技術平面圖 Tech Flat">
+      <img src="assets/works/apparel-01.jpg" alt="羽絨機能外套" loading="lazy">
+      <div class="work-info"><div class="work-cat">技術平面圖 Tech Flat</div><h4>羽絨機能外套</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-02.jpg" data-title="羽絨外套 細節規格 · Spec Sheet">
+      <img src="assets/works/apparel-02.jpg" alt="羽絨外套 細節規格" loading="lazy">
+      <div class="work-info"><div class="work-cat">Spec Sheet</div><h4>羽絨外套 細節規格</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-03.jpg" data-title="羽絨外套 實穿提案 · Styling">
+      <img src="assets/works/apparel-03.jpg" alt="羽絨外套 實穿提案" loading="lazy">
+      <div class="work-info"><div class="work-cat">Styling</div><h4>羽絨外套 實穿提案</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-04.jpg" data-title="VELORA 機能外套 · 技術平面圖 Tech Flat">
+      <img src="assets/works/apparel-04.jpg" alt="VELORA 機能外套" loading="lazy">
+      <div class="work-info"><div class="work-cat">技術平面圖 Tech Flat</div><h4>VELORA 機能外套</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-05.jpg" data-title="VELORA 結構規格 · Spec Sheet">
+      <img src="assets/works/apparel-05.jpg" alt="VELORA 結構規格" loading="lazy">
+      <div class="work-info"><div class="work-cat">Spec Sheet</div><h4>VELORA 結構規格</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-06.jpg" data-title="VELORA 實穿提案 · Styling">
+      <img src="assets/works/apparel-06.jpg" alt="VELORA 實穿提案" loading="lazy">
+      <div class="work-info"><div class="work-cat">Styling</div><h4>VELORA 實穿提案</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-07.jpg" data-title="機能風衣 白色版 · 技術平面圖 Tech Flat">
+      <img src="assets/works/apparel-07.jpg" alt="機能風衣 白色版" loading="lazy">
+      <div class="work-info"><div class="work-cat">技術平面圖 Tech Flat</div><h4>機能風衣 白色版</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-08.jpg" data-title="機能風衣 實穿提案 · Styling">
+      <img src="assets/works/apparel-08.jpg" alt="機能風衣 實穿提案" loading="lazy">
+      <div class="work-info"><div class="work-cat">Styling</div><h4>機能風衣 實穿提案</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-09.jpg" data-title="運動套裝 配色提案 · 技術平面圖 Tech Flat">
+      <img src="assets/works/apparel-09.jpg" alt="運動套裝 配色提案" loading="lazy">
+      <div class="work-info"><div class="work-cat">技術平面圖 Tech Flat</div><h4>運動套裝 配色提案</h4></div>
+    </div>
+    <div class="work-card" data-cat="product" data-img="assets/works/apparel-10.jpg" data-title="運動套裝 實穿提案 · Styling">
+      <img src="assets/works/apparel-10.jpg" alt="運動套裝 實穿提案" loading="lazy">
+      <div class="work-info"><div class="work-cat">Styling</div><h4>運動套裝 實穿提案</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-01.jpg" data-title="BERLIN · 品牌標誌">
+      <img src="assets/works/logo-01.jpg" alt="BERLIN" loading="lazy">
+      <div class="work-info"><div class="work-cat">品牌標誌</div><h4>BERLIN</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-02.jpg" data-title="QiuRod 簽名標誌 · 個人識別">
+      <img src="assets/works/logo-02.jpg" alt="QiuRod 簽名標誌" loading="lazy">
+      <div class="work-info"><div class="work-cat">個人識別</div><h4>QiuRod 簽名標誌</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-03.jpg" data-title="NEXORA Technologies · 科技品牌">
+      <img src="assets/works/logo-03.jpg" alt="NEXORA Technologies" loading="lazy">
+      <div class="work-info"><div class="work-cat">科技品牌</div><h4>NEXORA Technologies</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-04.jpg" data-title="NO!SE PR & Event · 活動品牌">
+      <img src="assets/works/logo-04.jpg" alt="NO!SE PR & Event" loading="lazy">
+      <div class="work-info"><div class="work-cat">活動品牌</div><h4>NO!SE PR & Event</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-05.jpg" data-title="L'AMOUR 婚禮顧問 · 婚禮品牌">
+      <img src="assets/works/logo-05.jpg" alt="L'AMOUR 婚禮顧問" loading="lazy">
+      <div class="work-info"><div class="work-cat">婚禮品牌</div><h4>L'AMOUR 婚禮顧問</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-06.jpg" data-title="Shadow Ink 刺青 · 插畫標誌">
+      <img src="assets/works/logo-06.jpg" alt="Shadow Ink 刺青" loading="lazy">
+      <div class="work-info"><div class="work-cat">插畫標誌</div><h4>Shadow Ink 刺青</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-07.jpg" data-title="鍋有意思 精緻火鍋 · 餐飲品牌">
+      <img src="assets/works/logo-07.jpg" alt="鍋有意思 精緻火鍋" loading="lazy">
+      <div class="work-info"><div class="work-cat">餐飲品牌</div><h4>鍋有意思 精緻火鍋</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-08.jpg" data-title="舒壓坊 按摩 · 養生品牌">
+      <img src="assets/works/logo-08.jpg" alt="舒壓坊 按摩" loading="lazy">
+      <div class="work-info"><div class="work-cat">養生品牌</div><h4>舒壓坊 按摩</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-09.jpg" data-title="鑫曜投資 · 金融品牌">
+      <img src="assets/works/logo-09.jpg" alt="鑫曜投資" loading="lazy">
+      <div class="work-info"><div class="work-cat">金融品牌</div><h4>鑫曜投資</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-10.jpg" data-title="KAZERU 日系選品 · 服飾品牌">
+      <img src="assets/works/logo-10.jpg" alt="KAZERU 日系選品" loading="lazy">
+      <div class="work-info"><div class="work-cat">服飾品牌</div><h4>KAZERU 日系選品</h4></div>
+    </div>
+    <div class="work-card" data-cat="logo" data-img="assets/works/logo-11.jpg" data-title="KOGENKI 機能品牌 · 機車部品">
+      <img src="assets/works/logo-11.jpg" alt="KOGENKI 機能品牌" loading="lazy">
+      <div class="work-info"><div class="work-cat">機車部品</div><h4>KOGENKI 機能品牌</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-01.jpg" data-title="旬味 日式料理 · 餐飲名片">
+      <img src="assets/works/card-01.jpg" alt="旬味 日式料理" loading="lazy">
+      <div class="work-info"><div class="work-cat">餐飲名片</div><h4>旬味 日式料理</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-02.jpg" data-title="宏信金融集團 · 金融名片">
+      <img src="assets/works/card-02.jpg" alt="宏信金融集團" loading="lazy">
+      <div class="work-info"><div class="work-cat">金融名片</div><h4>宏信金融集團</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-03.jpg" data-title="URBAN VIBES 街頭 · 潮流名片">
+      <img src="assets/works/card-03.jpg" alt="URBAN VIBES 街頭" loading="lazy">
+      <div class="work-info"><div class="work-cat">潮流名片</div><h4>URBAN VIBES 街頭</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-04.jpg" data-title="攝影師 / 創意工作者 · 個人名片">
+      <img src="assets/works/card-04.jpg" alt="攝影師 / 創意工作者" loading="lazy">
+      <div class="work-info"><div class="work-cat">個人名片</div><h4>攝影師 / 創意工作者</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-05.jpg" data-title="NEXORA Technologies · 極簡名片">
+      <img src="assets/works/card-05.jpg" alt="NEXORA Technologies" loading="lazy">
+      <div class="work-info"><div class="work-cat">極簡名片</div><h4>NEXORA Technologies</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-06.jpg" data-title="康悅診所 · 醫療名片">
+      <img src="assets/works/card-06.jpg" alt="康悅診所" loading="lazy">
+      <div class="work-info"><div class="work-cat">醫療名片</div><h4>康悅診所</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-07.jpg" data-title="NEXORA Games 電競 · 科技感名片">
+      <img src="assets/works/card-07.jpg" alt="NEXORA Games 電競" loading="lazy">
+      <div class="work-info"><div class="work-cat">科技感名片</div><h4>NEXORA Games 電競</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-08.jpg" data-title="NO!SE PR & Event · 活動名片">
+      <img src="assets/works/card-08.jpg" alt="NO!SE PR & Event" loading="lazy">
+      <div class="work-info"><div class="work-cat">活動名片</div><h4>NO!SE PR & Event</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-09.jpg" data-title="LUXORIA Jewelry · 燙金名片">
+      <img src="assets/works/card-09.jpg" alt="LUXORIA Jewelry" loading="lazy">
+      <div class="work-info"><div class="work-cat">燙金名片</div><h4>LUXORIA Jewelry</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-10.jpg" data-title="MAGIC 魔術師 · 燙金名片">
+      <img src="assets/works/card-10.jpg" alt="MAGIC 魔術師" loading="lazy">
+      <div class="work-info"><div class="work-cat">燙金名片</div><h4>MAGIC 魔術師</h4></div>
+    </div>
+    <div class="work-card" data-cat="card" data-img="assets/works/card-11.jpg" data-title="插畫工作者 · 插畫名片">
+      <img src="assets/works/card-11.jpg" alt="插畫工作者" loading="lazy">
+      <div class="work-info"><div class="work-cat">插畫名片</div><h4>插畫工作者</h4></div>
+    </div>
+    <div class="work-card" data-cat="dm" data-img="assets/works/dm-01.jpg" data-title="宏信金融 財富管理 · 宣傳 DM">
+      <img src="assets/works/dm-01.jpg" alt="宏信金融 財富管理" loading="lazy">
+      <div class="work-info"><div class="work-cat">宣傳 DM</div><h4>宏信金融 財富管理</h4></div>
+    </div>
+    <div class="work-card" data-cat="dm" data-img="assets/works/dm-02.jpg" data-title="攝影師名片提案 · 雙面名片">
+      <img src="assets/works/dm-02.jpg" alt="攝影師名片提案" loading="lazy">
+      <div class="work-info"><div class="work-cat">雙面名片</div><h4>攝影師名片提案</h4></div>
+    </div>
+    <div class="work-card" data-cat="dm" data-img="assets/works/dm-03.jpg" data-title="URBAN VIBES 街頭潮牌 · 海報 DM">
+      <img src="assets/works/dm-03.jpg" alt="URBAN VIBES 街頭潮牌" loading="lazy">
+      <div class="work-info"><div class="work-cat">海報 DM</div><h4>URBAN VIBES 街頭潮牌</h4></div>
+    </div>
+    <div class="work-card" data-cat="dm" data-img="assets/works/dm-04.jpg" data-title="MAGIC 魔術演出 · 活動 DM">
+      <img src="assets/works/dm-04.jpg" alt="MAGIC 魔術演出" loading="lazy">
+      <div class="work-info"><div class="work-cat">活動 DM</div><h4>MAGIC 魔術演出</h4></div>
+    </div>
+    <div class="work-card" data-cat="dm" data-img="assets/works/dm-05.jpg" data-title="大華會計師事務所 · 三摺頁 DM">
+      <img src="assets/works/dm-05.jpg" alt="大華會計師事務所" loading="lazy">
+      <div class="work-info"><div class="work-cat">三摺頁 DM</div><h4>大華會計師事務所</h4></div>
+    </div>
+    <div class="work-card" data-cat="dm" data-img="assets/works/dm-06.jpg" data-title="L'AMOUR 婚禮顧問 · 婚禮 DM">
+      <img src="assets/works/dm-06.jpg" alt="L'AMOUR 婚禮顧問" loading="lazy">
+      <div class="work-info"><div class="work-cat">婚禮 DM</div><h4>L'AMOUR 婚禮顧問</h4></div>
+    </div>
+    <div class="work-card" data-cat="dm" data-img="assets/works/dm-07.jpg" data-title="XXX 旅行社 · 旅遊 DM">
+      <img src="assets/works/dm-07.jpg" alt="XXX 旅行社" loading="lazy">
+      <div class="work-info"><div class="work-cat">旅遊 DM</div><h4>XXX 旅行社</h4></div>
+    </div>
+    <div class="work-card" data-cat="campaign" data-img="assets/work-raingo.jpg" data-title="RainGo 2.0 早鳥預購 · 活動 Banner">
+      <img src="assets/work-raingo.jpg" alt="RainGo 2.0 早鳥預購" loading="lazy">
+      <div class="work-info"><div class="work-cat">活動 Banner</div><h4>RainGo 2.0 早鳥預購</h4></div>
+    </div>
+    <div class="work-card" data-cat="campaign" data-img="assets/work-cooling.jpg" data-title="夏季涼感特別活動 · 活動 Banner">
+      <img src="assets/work-cooling.jpg" alt="夏季涼感特別活動" loading="lazy">
+      <div class="work-info"><div class="work-cat">活動 Banner</div><h4>夏季涼感特別活動</h4></div>
+    </div>
+    <div class="work-card" data-cat="campaign" data-img="assets/work-bolin.jpg" data-title="柏霖動機 官網上線 · 電商 Banner">
+      <img src="assets/work-bolin.jpg" alt="柏霖動機 官網上線" loading="lazy">
+      <div class="work-info"><div class="work-cat">電商 Banner</div><h4>柏霖動機 官網上線</h4></div>
+    </div>
+    <div class="work-card" data-cat="campaign" data-img="assets/work-gear.jpg" data-title="騎出自我 裝備升級 · 多品牌 Banner">
+      <img src="assets/work-gear.jpg" alt="騎出自我 裝備升級" loading="lazy">
+      <div class="work-info"><div class="work-cat">多品牌 Banner</div><h4>騎出自我 裝備升級</h4></div>
+    </div>
+    <div class="work-card" data-cat="campaign" data-img="assets/work-newsite.jpg" data-title="新官網會員行銷 · 電商 Banner">
+      <img src="assets/work-newsite.jpg" alt="新官網會員行銷" loading="lazy">
+      <div class="work-info"><div class="work-cat">電商 Banner</div><h4>新官網會員行銷</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="wrap">
+  <div class="contact-inner reveal">
+    <div class="contact-big">準備好<span class="accent">超速設計</span>了嗎</div>
+    <p class="contact-tag">好的設計，不用你等 — 來聊聊你的專案</p>
+    <div class="contact-links">
+      <a href="https://line.me/ti/p/~rod28033030" target="_blank" rel="noopener">
+        <span class="k">LINE</span><span class="v">rod28033030</span>
+      </a>
+      <a href="mailto:rod28442020@gmail.com">
+        <span class="k">Email</span><span class="v">rod28442020@gmail.com</span>
+      </a>
+      <a href="#" id="igLink">
+        <span class="k">Instagram</span><span class="v">@超速設計</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo"><img src="assets/logo-dark.png" alt="超速設計"><span>超速設計 HYPERSTAR DESIGN</span></div>
+  <small>© 2026 HYPERSTAR DESIGN · Taichung, Taiwan</small>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose" aria-label="關閉">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="上一張">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="下一張">›</button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+// nav scroll state
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+// mobile menu
+document.getElementById('navToggle').addEventListener('click',()=>nav.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+
+// cursor glow
+const glow=document.getElementById('glow');
+addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';});
+
+// scroll reveal
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// work filter
+const cards=[...document.querySelectorAll('.work-card')];
+function applyFilter(f){cards.forEach(c=>{c.style.display=(c.dataset.cat===f)?'':'none';});}
+document.querySelectorAll('.work-filter button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelector('.work-filter .active').classList.remove('active');
+    b.classList.add('active');
+    applyFilter(b.dataset.f);
+  });
+});
+// apply default active category on load
+applyFilter(document.querySelector('.work-filter .active').dataset.f);
+
+// lightbox
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+let visible=[],idx=0;
+function openLb(card){
+  visible=cards.filter(c=>c.style.display!=='none');
+  idx=visible.indexOf(card);
+  show();
+  lb.classList.add('open');
+}
+function show(){const c=visible[idx];lbImg.src=c.dataset.img;lbCap.textContent=c.dataset.title;}
+cards.forEach(c=>c.addEventListener('click',()=>openLb(c)));
+document.getElementById('lbClose').addEventListener('click',()=>lb.classList.remove('open'));
+document.getElementById('lbNext').addEventListener('click',()=>{idx=(idx+1)%visible.length;show();});
+document.getElementById('lbPrev').addEventListener('click',()=>{idx=(idx-1+visible.length)%visible.length;show();});
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open');});
+addEventListener('keydown',e=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')lb.classList.remove('open');
+  if(e.key==='ArrowRight'){idx=(idx+1)%visible.length;show();}
+  if(e.key==='ArrowLeft'){idx=(idx-1+visible.length)%visible.length;show();}
+});
+
+// IG placeholder (not created yet)
+document.getElementById('igLink').addEventListener('click',e=>{e.preventDefault();alert('Instagram @超速設計 即將上線');});
+</script>
+</body>
+</html>
